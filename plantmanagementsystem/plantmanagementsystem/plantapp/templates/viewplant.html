@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Plant List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .table {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px purple;
+        }
+        .table thead {
+            background-color: rgb(128, 112, 218);
+            color: #ffffff;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2; /* Color of even rows */
+        }
+        .table tr:nth-child(odd) {
+            background-color: #e9ecef; /* Color of odd rows */
+        }
+        .table th {
+            background-color: #6c757d; /* Color of table headers */
+            color: #ffffff;
+        }
+        .btn-primary, .btn-danger {
+            margin: 0 5px;
+        }
+        .text-center {
+            margin-top: 20px;
+        }
+        img {
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .btn {
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1><b>PLANT LIST</b></h1>
+    
+    <table class="table">
+        <thead class="thead-success">
+          <tr >
+            <th class="table-success" scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Family</th> 
+            <th scope="col">Soil Type</th>
+            <th scope="col">Height</th>          
+            <th scope="col">Region Of Origin</th>
+            <th scope="col">Possible Diseases</th>
+            <th scope="col">Image</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in plantlist %}
+          <tr>
+            <th scope="row">{{i.pk}}</th>
+            <td>{{ i.pname }}</td>
+            <td>{{ i.pfamily }}</td>
+            <td>{{ i.psoiltype }}</td>
+            <td>{{ i.pheight }}</td>
+            <td>{{ i.pror }}</td>
+            <td>{{ i.possiblediseases }}</td>
+            <td><img src="{{i.profile.url}}" style="height: 100px; width: 100px;"></td>
+            <td>
+                <a href="{% url 'deleteplant' i.pk %}" class="btn btn-outline-danger">Delete</a>
+                <a href="{% url 'editplant' i.pk %}" class="btn btn-outline-dark">Edit</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="text-center">
+        <a href="{% url 'addplant' %}" class="btn btn-outline-info">Add Plant</a>
+        <a href="{% url 'home' %}" class="btn btn-outline-info">HomePage</a>
+      </div>
+</body>
+</html>
